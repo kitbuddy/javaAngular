@@ -1,5 +1,5 @@
 pipeline {
-    agent any   // Run on any available Jenkins executor
+    agent { label 'java-angular' }   // Run on any available Jenkins executor
 
     environment {
         NODE_ENV = "production"
@@ -11,7 +11,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git branch: 'main', 
+                git branch: 'develop',
                     url: 'https://github.com/kitbuddy/javaAngular.git', 
                     credentialsId: 'github-pat-credentials'  // Replace with your Jenkins credential ID
             }
