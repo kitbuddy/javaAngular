@@ -22,7 +22,7 @@ pipeline {
                 dir('client/frontend') {
                     echo "Installing Angular dependencies..."
                     sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npm cache clean --force'
-                    sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npm install'
+                    sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npm install --legacy-peer-deps'
                 }
             }
         }
