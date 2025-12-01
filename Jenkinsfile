@@ -20,7 +20,7 @@ pipeline {
        stage('Install Angular Dependencies') {
            steps {
                dir('client/frontend') {
-                   echo "Installing Angular dependencies..."
+                   echo "Installing Angular dependencies in Jenkins workspace..."
                    sh '''
                        export NVM_DIR="$HOME/.nvm"
                        [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
