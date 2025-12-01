@@ -20,12 +20,8 @@ pipeline {
        stage('Install Angular Dependencies') {
            steps {
                dir('client/frontend') {
-                   echo "Installing Angular dependencies in Jenkins workspace..."
-                   sh '''
-                       export NVM_DIR="$HOME/.nvm"
-                       [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                       npm install --legacy-peer-deps
-                   '''
+                   echo "Installing Angular dependencies..."
+                   sh 'npm install --legacy-peer-deps'
                }
            }
        }
@@ -34,14 +30,11 @@ pipeline {
            steps {
                dir('client/frontend') {
                    echo "Building Angular frontend..."
-                   sh '''
-                       export NVM_DIR="$HOME/.nvm"
-                       [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
-                       npx ng build --configuration production
-                   '''
+                   sh 'npx ng build --configuration production'
                }
            }
        }
+
 
         stage('Build Java Backend') {
             steps {
