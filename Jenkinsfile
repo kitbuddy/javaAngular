@@ -1,6 +1,8 @@
 pipeline {
     agent { label 'java-angular' }   // Run on any available Jenkins executor
-
+    tools {
+        nodejs "Node20" // Name from Global Tool Configuration
+    }
     environment {
         NODE_ENV = "production"
         JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64" // adjust for your EC2
