@@ -17,25 +17,31 @@ pipeline {
             }
         }
 
-        stage('Install Angular Dependencies') {
-            steps {
-                dir('client/frontend') {
-                    echo "Installing Angular dependencies..."
-                    sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npm cache clean --force'
-                    sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npm install --legacy-peer-deps'
-                }
-            }
-        }
+       stage('Install Angular Dependencies') {
+           steps {
+               dir('client/frontend') {
+                   echo "Installing Angular dependencies..."
+                   sh '''
+                       export NVM_DIR="$HOME/.nvm"
+                       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                       npm install --legacy-peer-deps
+                   '''
+               }
+           }
+       }
 
        stage('Build Angular Frontend') {
            steps {
                dir('client/frontend') {
                    echo "Building Angular frontend..."
-                   sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npx ng build --configuration production'
+                   sh '''
+                       export NVM_DIR="$HOME/.nvm"
+                       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                       npx ng build --configuration production
+                   '''
                }
            }
        }
-
 
         stage('Build Java Backend') {
             steps {
