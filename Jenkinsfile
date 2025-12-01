@@ -27,14 +27,15 @@ pipeline {
             }
         }
 
-        stage('Build Angular Frontend') {
-            steps {
-                dir('client/frontend') {
-                    echo "Building Angular frontend..."
-                    sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npx ng build --prod'
-                }
-            }
-        }
+       stage('Build Angular Frontend') {
+           steps {
+               dir('client/frontend') {
+                   echo "Building Angular frontend..."
+                   sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npx ng build --configuration production'
+               }
+           }
+       }
+
 
         stage('Build Java Backend') {
             steps {
