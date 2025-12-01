@@ -23,7 +23,7 @@ pipeline {
                    echo "Installing Angular dependencies..."
                    sh '''
                        export NVM_DIR="$HOME/.nvm"
-                       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                       [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                        npm install --legacy-peer-deps
                    '''
                }
@@ -36,7 +36,7 @@ pipeline {
                    echo "Building Angular frontend..."
                    sh '''
                        export NVM_DIR="$HOME/.nvm"
-                       [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+                       [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
                        npx ng build --configuration production
                    '''
                }
