@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         NODE_ENV = "production"
-        JAVA_HOME = "/opt/homebrew/opt/openjdk" // adjust if needed
-        PATH = "/opt/homebrew/bin:${JAVA_HOME}/bin:${env.PATH}"  // include npm, node, java
+        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"  // adjust if needed
+        PATH = "/Users/ankitjain/.nvm/versions/node/v22.13.1/bin:${JAVA_HOME}/bin:/bin:/usr/bin:${env.PATH}"
     }
 
     stages {
@@ -12,8 +12,8 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'develop',
-                    url: 'https://github.com/kitbuddy/javaAngular.git', 
-                    credentialsId: 'github-pat-credentials'  // Replace with your Jenkins credential ID
+                    url: 'https://github.com/kitbuddy/javaAngular.git',
+                    credentialsId: 'github-pat-credentials'
             }
         }
 
@@ -21,8 +21,8 @@ pipeline {
             steps {
                 dir('client/frontend') {
                     echo "Installing Angular dependencies..."
-                    sh 'npm cache clean --force'
-                    sh 'npm install'
+                    sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npm cache clean --force'
+                    sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npm install'
                 }
             }
         }
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 dir('client/frontend') {
                     echo "Building Angular frontend..."
-                    sh 'npx ng build --prod'
+                    sh '/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npx ng build --prod'
                 }
             }
         }
@@ -47,9 +47,7 @@ pipeline {
 
         stage('Archive Artifacts') {
             steps {
-                // Angular dist folder
                 archiveArtifacts artifacts: 'client/frontend/dist/**/*', allowEmptyArchive: true
-                // Java backend JARs
                 archiveArtifacts artifacts: 'server/backend/target/*.jar', allowEmptyArchive: true
             }
         }
