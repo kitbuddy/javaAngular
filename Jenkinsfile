@@ -3,8 +3,8 @@ pipeline {
 
     environment {
         NODE_ENV = "production"
-        JAVA_HOME = "/opt/homebrew/opt/openjdk/bin/java" // adjust if needed
-        PATH = "/Users/ankitjain/.nvm/versions/node/v22.13.1/bin/npm"  // include npm, node, java
+        JAVA_HOME = "/opt/homebrew/opt/openjdk" // adjust if needed
+        PATH = "/opt/homebrew/bin:${JAVA_HOME}/bin:${env.PATH}"  // include npm, node, java
     }
 
     stages {
