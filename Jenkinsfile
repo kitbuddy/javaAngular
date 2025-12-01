@@ -9,17 +9,6 @@ pipeline {
 
     stages {
 
-    pipeline {
-        agent { label 'java-angular' }
-        stages {
-            stage('Build') {
-                steps {
-                    echo 'Building...'
-                }
-            }
-        }
-    }
-
         stage('Checkout Code') {
             steps {
                 git branch: 'develop',
