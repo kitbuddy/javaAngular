@@ -1,9 +1,9 @@
 pipeline {
-    agent any   // Run on any available Jenkins executor
+    agent any
 
     environment {
         NODE_ENV = "production"
-        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"  // adjust if needed
+        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
         PATH = "/Users/ankitjain/.nvm/versions/node/v22.13.1/bin:${JAVA_HOME}/bin:/bin:/usr/bin:${env.PATH}"
     }
 
@@ -11,13 +11,17 @@ pipeline {
         nodejs "Node18"
     }
 
-    dir('client/frontend') {
-        sh 'pwd'
-        sh 'ls -la'
-        sh 'cat package.json'
-    }
-
     stages {
+
+        stage('Show Frontend Directory') {
+            steps {
+                dir('client/frontend') {
+                    sh 'pwd'
+                    sh 'ls -la'
+                    sh 'cat package.json'
+                }
+            }
+        }
 
         stage('Checkout Code') {
             steps {
@@ -27,24 +31,23 @@ pipeline {
             }
         }
 
-       stage('Install Angular Dependencies') {
-           steps {
-               dir('client/frontend') {
-                   echo "Installing Angular dependencies..."
-                   sh 'npm install --legacy-peer-deps'
-               }
-           }
-       }
+        stage('Install Angular Dependencies') {
+            steps {
+                dir('client/frontend') {
+                    echo "Installing Angular dependencies..."
+                    sh 'npm install --legacy-peer-deps'
+                }
+            }
+        }
 
-       stage('Build Angular Frontend') {
-           steps {
-               dir('client/frontend') {
-                   echo "Building Angular frontend..."
-                   sh 'npx ng build --configuration production'
-               }
-           }
-       }
-
+        stage('Build Angular Frontend') {
+            steps {
+                dir('client/frontend') {
+                    echo "Building Angular frontend..."
+                    sh 'npx ng build --configuration production'
+                }
+            }
+        }
 
         stage('Build Java Backend') {
             steps {
@@ -61,15 +64,10 @@ pipeline {
                 archiveArtifacts artifacts: 'server/backend/target/*.jar', allowEmptyArchive: true
             }
         }
-
     }
 
     post {
-        success {
-            echo 'Build succeeded! ✅'
-        }
-        failure {
-            echo 'Build failed. ❌'
-        }
+        success { echo 'Build succeeded! ✅' }
+        failure { echo 'Build failed. ❌' }
     }
 }
