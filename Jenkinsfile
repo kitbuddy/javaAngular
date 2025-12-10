@@ -12,6 +12,14 @@ pipeline {
 
     stages {
 
+        stage('Checkout Code') {
+            steps {
+                git branch: 'develop',
+                    url: 'https://github.com/kitbuddy/javaAngular.git',
+                    credentialsId: 'github-pat-credentials'
+            }
+        }
+
         stage('Show Frontend Directory') {
             steps {
                 dir('client/frontend') {
@@ -22,19 +30,11 @@ pipeline {
             }
         }
 
-        stage('Checkout Code') {
-            steps {
-                git branch: 'develop',
-                    url: 'https://github.com/kitbuddy/javaAngular.git',
-                    credentialsId: 'github-pat-credentials'
-            }
-        }
-
         stage('Install Angular Dependencies') {
             steps {
                 dir('client/frontend') {
                     echo "Installing Angular dependencies..."
-                    sh 'npm install --legacy-peer-deps'
+                    sh 'npm install --legacy-peer-deps --include=dev'
                 }
             }
         }
@@ -43,7 +43,7 @@ pipeline {
             steps {
                 dir('client/frontend') {
                     echo "Building Angular frontend..."
-                    sh 'npx ng build --configuration production'
+                    sh './node_modules/.bin/ng build --configuration production'
                 }
             }
         }
