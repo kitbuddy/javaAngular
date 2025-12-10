@@ -48,14 +48,14 @@ pipeline {
             }
         }
 
-        stage('Build Java Backend') {
-            steps {
-                dir('server/backend') {
-                    echo "Building Java backend..."
-                    sh 'mvn clean install'
-                }
-            }
-        }
+//         stage('Build Java Backend') {
+//             steps {
+//                 dir('server/backend') {
+//                     echo "Building Java backend..."
+//                     sh 'mvn clean install'
+//                 }
+//             }
+//         }
 
         stage('Archive Artifacts') {
             steps {
