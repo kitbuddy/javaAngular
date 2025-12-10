@@ -1,11 +1,10 @@
 pipeline {
     agent any
 
-    environment {
-        NODE_ENV = "production"
-        JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
-        PATH = "/Users/ankitjain/.nvm/versions/node/v22.13.1/bin:${JAVA_HOME}/bin:/bin:/usr/bin:${env.PATH}"
-    }
+   environment {
+       NODE_ENV = "production"
+       JAVA_HOME = "/usr/lib/jvm/java-17-openjdk-amd64"
+   }
 
     tools {
         nodejs "Node 18"
