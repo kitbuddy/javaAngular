@@ -7,6 +7,16 @@ pipeline {
         PATH = "/Users/ankitjain/.nvm/versions/node/v22.13.1/bin:${JAVA_HOME}/bin:/bin:/usr/bin:${env.PATH}"
     }
 
+    tools {
+        nodejs "Node18"
+    }
+
+    dir('client/frontend') {
+        sh 'pwd'
+        sh 'ls -la'
+        sh 'cat package.json'
+    }
+
     stages {
 
         stage('Checkout Code') {
