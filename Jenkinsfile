@@ -50,19 +50,15 @@ pipeline {
 
         stage('Deploy to EC2') {
             steps {
-                sshagent(['ec2-ssh-key']) {
-                    sh '''
-                    echo "Deploying Angular build to EC2..."
-                    # Create folder on EC2 if it doesn't exist
-                    ssh ec2-user@ec2-3-133-115-171.us-east-2.compute.amazonaws.com 'mkdir -p /home/ec2-user/angular-app'
+                sh '''
+                echo "Deploying Angular build to EC2..."
+                scp -i /Users/ankitjain/Desktop/javaAngularAWS/javaAngularAgain.pem -o StrictHostKeyChecking=no -r client/frontend/dist/frontend/* ec2-user@ec2-3-133-115-171.us-east-2.compute.amazonaws.com:/home/ec2-user/angular-app/
 
-                    # Copy build files
-                    scp -r client/frontend/dist/frontend/* ec2-user@ec2-3-133-115-171.us-east-2.compute.amazonaws.com:/home/ec2-user/angular-app/
-
-                    # Move files to Nginx directory and restart Nginx
-                    ssh ec2-user@ec2-3-133-115-171.us-east-2.compute.amazonaws.com 'sudo mv /home/ec2-user/angular-app/* /var/www/html/ && sudo systemctl restart nginx'
-                    '''
-                }
+                ssh -i /Users/ankitjain/Desktop/javaAngularAWS/javaAngularAgain.pem -o StrictHostKeyChecking=no ec2-user@ec2-3-133-115-171.us-east-2.compute.amazonaws.com "
+                    sudo mv /home/ec2-user/angular-app/* /var/www/html/ &&
+                    sudo systemctl restart nginx
+                "
+                '''
             }
         }
 
