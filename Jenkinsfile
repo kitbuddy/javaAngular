@@ -27,11 +27,9 @@ Jenkinsfile (Declarative Pipeline)
 // }
 /* Requires the Docker Pipeline plugin */
 
-    pipeline {
-        agent any
-        options {
-            // Skips subsequent stages if a test failure marks the build as UNSTABLE
-            skipStagesAfterUnstable() 
+       pipeline {
+        agent {
+            docker { image 'node:24.13.0-alpine3.23' }
         }
         stages {
             stage('Build') {
