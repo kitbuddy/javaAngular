@@ -1,4 +1,4 @@
-Jenkinsfile (Declarative Pipeline)
+// Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
 
 /* Requires the Docker Pipeline plugin */
