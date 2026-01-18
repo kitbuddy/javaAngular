@@ -27,28 +27,28 @@ Jenkinsfile (Declarative Pipeline)
 // }
 /* Requires the Docker Pipeline plugin */
 
-       pipeline {
-        agent {
-            docker { image 'node:24.13.0-alpine3.23' }
+   pipeline {
+    agent {
+        docker { image 'node:24.13.0-alpine3.23' }
+    }
+    stages {
+        stage('Build') {
+            steps {
+                sh 'make' // Placeholder for the build command (e.g., 'mvn compile')
+            }
         }
-        stages {
-            stage('Build') {
-                steps {
-                    sh 'make' // Placeholder for the build command (e.g., 'mvn compile')
-                }
+        stage('Test') {
+            steps {
+                sh 'make check' // Placeholder for running tests (e.g., 'mvn test')
+                // Gathers test results for visualization and trend analysis
+                junit 'reports/**/*.xml'
             }
-            stage('Test') {
-                steps {
-                    sh 'make check' // Placeholder for running tests (e.g., 'mvn test')
-                    // Gathers test results for visualization and trend analysis
-                    junit 'reports/**/*.xml' 
-                }
-            }
-            stage('Deploy') {
-                steps {
-                    sh 'make publish' // Placeholder for deployment command
-                }
+        }
+        stage('Deploy') {
+            steps {
+                sh 'make publish' // Placeholder for deployment command
             }
         }
     }
+}
 
