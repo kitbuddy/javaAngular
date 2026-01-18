@@ -3,10 +3,10 @@ Jenkinsfile (Declarative Pipeline)
 pipeline {
     agent { docker { image 'maven:3.9.11-eclipse-temurin-21-alpine' } }
     stages {
-        echo "----------Here I am printing mvn version from jenkins file: ----------"
 
         stage('build') {
             steps {
+                echo "----------Here I am printing mvn version from jenkins file: ----------"
                 sh 'mvn --version'
             }
         }
