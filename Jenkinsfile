@@ -27,30 +27,30 @@ Jenkinsfile (Declarative Pipeline)
 // }
 /* Requires the Docker Pipeline plugin */
 
-pipeline {
-    agent any
-    options {
-        // Skips subsequent stages if a test failure marks the build as UNSTABLE
-        skipStagesAfterUnstable() 
+    pipeline {
+        agent any
+        options {
+            // Skips subsequent stages if a test failure marks the build as UNSTABLE
+            skipStagesAfterUnstable() 
+        }
+        stages {
+            stage('Build') {
+                steps {
+                    sh 'make' // Placeholder for the build command (e.g., 'mvn compile')
+                }
+            }
+            stage('Test') {
+                steps {
+                    sh 'make check' // Placeholder for running tests (e.g., 'mvn test')
+                    // Gathers test results for visualization and trend analysis
+                    junit 'reports/**/*.xml' 
+                }
+            }
+            stage('Deploy') {
+                steps {
+                    sh 'make publish' // Placeholder for deployment command
+                }
+            }
+        }
     }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'make' // Placeholder for the build command (e.g., 'mvn compile')
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'make check' // Placeholder for running tests (e.g., 'mvn test')
-                // Gathers test results for visualization and trend analysis
-                junit 'reports/**/*.xml' 
-            }
-        }
-        stage('Deploy') {
-            steps {
-                sh 'make publish' // Placeholder for deployment command
-            }
-        }
-    }
-}
 
