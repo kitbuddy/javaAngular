@@ -7,6 +7,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
+                echo "updating java file for jeenkins"
                 sh 'node --eval "console.log(process.platform,process.env.CI)"'
             }
         }
