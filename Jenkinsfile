@@ -1,5 +1,7 @@
 Jenkinsfile (Declarative Pipeline)
 /* Requires the Docker Pipeline plugin */
+
+/* Requires the Docker Pipeline plugin */
 // pipeline {
 //     agent {
 //         docker { image 'node:24.13.0-alpine3.23' }
@@ -13,7 +15,7 @@ Jenkinsfile (Declarative Pipeline)
 //         }
 //     }
 // }
-
+//
 // pipeline {
 //     agent { docker { image 'maven:3.9.11-eclipse-temurin-21-alpine' } }
 //     stages {
@@ -25,9 +27,8 @@ Jenkinsfile (Declarative Pipeline)
 //         }
 //     }
 // }
-/* Requires the Docker Pipeline plugin */
 
-   pipeline {
+pipeline {
     agent {
         docker { image 'node:24.13.0-alpine3.23' }
     }
