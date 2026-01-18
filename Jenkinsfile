@@ -1,55 +1,32 @@
-// Jenkinsfile (Declarative Pipeline)
-/* Requires the Docker Pipeline plugin */
-
-/* Requires the Docker Pipeline plugin */
-// pipeline {
-//     agent {
-//         docker { image 'node:24.13.0-alpine3.23' }
-//     }
-//     stages {
-//         stage('Test') {
-//             steps {
-//                 echo "updating java file for jeenkins"
-//                 sh 'node --eval "console.log(process.platform,process.env.CI)"'
-//             }
-//         }
-//     }
-// }
-//
-// pipeline {
-//     agent { docker { image 'maven:3.9.11-eclipse-temurin-21-alpine' } }
-//     stages {
-//         stage('build') {
-//             steps {
-//                 echo "----------Here I am printing mvn version from jenkins file: ----------"
-//                 sh 'mvn --version'
-//             }
-//         }
-//     }
-// }
-
 pipeline {
-    agent {
-        docker { image 'node:24.13.0-alpine3.23' }
-    }
+    agent any
+
     stages {
         stage('Build') {
             steps {
-                sh 'make' // Placeholder for the build command (e.g., 'mvn compile')
+                echo 'Building the project...'
+                // Add your build commands here, e.g., sh 'mvn clean install'
             }
         }
+
         stage('Test') {
             steps {
-                sh 'make check' // Placeholder for running tests (e.g., 'mvn test')
-                // Gathers test results for visualization and trend analysis
-                junit 'reports/**/*.xml'
+                echo 'Running tests...'
+                // Add your test commands here, e.g., sh 'mvn test'
             }
         }
+
         stage('Deploy') {
             steps {
-                sh 'make publish' // Placeholder for deployment command
+                echo 'Deploying the application...'
+                // Add your deploy commands here, e.g., sh 'kubectl apply -f deployment.yaml'
             }
         }
     }
-}
 
+    post {
+        always {
+            echo 'Pipeline completed.'
+        }
+    }
+}
